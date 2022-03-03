@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_creator/screens/icon_creator_screen.dart';
 
 import 'bloc/icon_creator_bloc.dart';
+import 'colors/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,19 +18,20 @@ class MyApp extends StatelessWidget {
     return AdaptiveTheme(
       light: ThemeData(
         brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: AppColors.primary)
             .copyWith(secondary: Colors.amber, brightness: Brightness.light),
       ),
       dark: ThemeData(
           brightness: Brightness.dark,
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
+          colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: AppColors.primaryDark)
               .copyWith(secondary: Colors.amber, brightness: Brightness.dark)),
       builder: (theme, darkTheme) {
         return MaterialApp(
-          title: 'Icon Creator',
+          title: 'Mobile Icon Set Creator',
           theme: theme,
           darkTheme: darkTheme,
-          home: const MyHomePage(title: 'Icon Creator'),
+          home: const MyHomePage(title: 'Mobile Icon Set Creator'),
         );
       },
       initial: AdaptiveThemeMode.system,

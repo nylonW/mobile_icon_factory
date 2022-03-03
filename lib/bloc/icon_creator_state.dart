@@ -1,30 +1,34 @@
 part of 'icon_creator_bloc.dart';
 
-class ImageFile extends Equatable {
-  const ImageFile({required this.url});
-
-  final String? url;
-
-  ImageFile copyWith({String? url}) {
-    return ImageFile(url: url ?? this.url);
-  }
-
-  @override
-  List<Object?> get props => [url];
-}
-
 class IconCreatorState extends Equatable {
-  const IconCreatorState({required this.files, required this.dragging});
+  const IconCreatorState(
+      {required this.files,
+      required this.dragging,
+      required this.androidSelected,
+      required this.iosSelected});
 
-  IconCreatorState.initial() : this(files: [], dragging: false);
+  IconCreatorState.initial()
+      : this(
+            files: [],
+            dragging: false,
+            androidSelected: true,
+            iosSelected: true);
 
-  final List<ImageFile> files;
+  final List<XFile> files;
   final bool dragging;
+  final bool androidSelected;
+  final bool iosSelected;
 
-  IconCreatorState copyWith({List<ImageFile>? files, bool? dragging}) {
+  IconCreatorState copyWith(
+      {List<XFile>? files,
+      bool? dragging,
+      bool? androidSelected,
+      bool? iosSelected}) {
     return IconCreatorState(
       files: files ?? this.files,
       dragging: dragging ?? this.dragging,
+      androidSelected: androidSelected ?? this.androidSelected,
+      iosSelected: iosSelected ?? this.iosSelected,
     );
   }
 

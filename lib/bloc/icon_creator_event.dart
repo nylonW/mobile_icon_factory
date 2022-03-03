@@ -7,13 +7,13 @@ abstract class IconCreatorEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class IconCreatorFileDropped extends IconCreatorEvent {
-  const IconCreatorFileDropped(this.url);
+class IconCreatorFilesDropped extends IconCreatorEvent {
+  const IconCreatorFilesDropped(this.files);
 
-  final String url;
+  final List<XFile> files;
 
   @override
-  List<Object?> get props => [url];
+  List<Object?> get props => [files];
 }
 
 class IconCreatorSubmitted extends IconCreatorEvent {
@@ -30,4 +30,22 @@ class IconCreatorDraggingChanged extends IconCreatorEvent {
 
   @override
   List<Object?> get props => [dragging];
+}
+
+class IconCreatorOnAndroidCheckboxChanged extends IconCreatorEvent {
+  const IconCreatorOnAndroidCheckboxChanged(this.androidSelected);
+
+  final bool androidSelected;
+
+  @override
+  List<Object?> get props => [androidSelected];
+}
+
+class IconCreatorOnIOSCheckboxChanged extends IconCreatorEvent {
+  const IconCreatorOnIOSCheckboxChanged(this.iosSelected);
+
+  final bool iosSelected;
+
+  @override
+  List<Object> get props => [iosSelected];
 }

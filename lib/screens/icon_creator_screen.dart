@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,44 +18,71 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
     return Scaffold(
       body: BlocBuilder<IconCreatorBloc, IconCreatorState>(
           builder: (context, state) {
-        print(state.dragging);
         return DropTarget(
           onDragDone: (details) {
             context
                 .read<IconCreatorBloc>()
-                .add(IconCreatorFileDropped(details.files.first.path));
+                .add(IconCreatorFilesDropped(details.files));
           },
           onDragEntered: (details) {
             context
                 .read<IconCreatorBloc>()
                 .add(const IconCreatorDraggingChanged(true));
-            print('called');
           },
           onDragExited: (details) {
             context
                 .read<IconCreatorBloc>()
                 .add(const IconCreatorDraggingChanged(false));
           },
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Drag & Drop here.',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: state.files.isNotEmpty
+                        ? Image.file(File(state.files.first.path), fit: BoxFit.cover,)
+                        : const DragDropHint(),
+                  ),
                 ),
-                Text(
-                  'dragging: ${state.dragging}',
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Android and iOS'),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Text('Go'),
+                      ),
+                    )
+                  ],
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.files.length,
-                    itemBuilder: (context, index) =>
-                        Text(state.files[index].url ?? ''))
-              ],
-            ),
+              )
+            ],
           ),
         );
       }), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class DragDropHint extends StatelessWidget {
+  const DragDropHint({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        'Drag & Drop here.',
+      ),
     );
   }
 }
