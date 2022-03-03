@@ -43,17 +43,48 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
                   child: AspectRatio(
                     aspectRatio: 1.0,
                     child: state.files.isNotEmpty
-                        ? Image.file(File(state.files.first.path), fit: BoxFit.cover,)
+                        ? Image.file(
+                            File(state.files.first.path),
+                            fit: BoxFit.cover,
+                          )
                         : const DragDropHint(),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                    left: 16.0, right: 16.0, bottom: 8.0, top: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Android and iOS'),
+                    Row(
+                      children: [
+                        const Text('Android'),
+                        Checkbox(
+                            value: state.androidSelected,
+                            onChanged: (value) {
+                              if (value == null) {
+                                return;
+                              }
+                              context.read<IconCreatorBloc>().add(
+                                  IconCreatorOnAndroidCheckboxChanged(value));
+                            }),
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        const Text('iOS'),
+                        Checkbox(
+                            value: state.iosSelected,
+                            onChanged: (value) {
+                              if (value == null) {
+                                return;
+                              }
+                              context
+                                  .read<IconCreatorBloc>()
+                                  .add(IconCreatorOnIOSCheckboxChanged(value));
+                            }),
+                      ],
+                    ),
                     ElevatedButton(
                       onPressed: () {},
                       child: const Padding(

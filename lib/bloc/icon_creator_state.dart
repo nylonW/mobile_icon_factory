@@ -33,5 +33,5 @@ class IconCreatorState extends Equatable {
   }
 
   @override
-  List<Object> get props => [files, dragging];
+  List<Object> get props => [files, dragging, androidSelected, iosSelected];
 }

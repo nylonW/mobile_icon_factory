@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_creator/screens/icon_creator_screen.dart';
@@ -6,7 +9,16 @@ import 'package:icon_creator/screens/icon_creator_screen.dart';
 import 'bloc/icon_creator_bloc.dart';
 import 'colors/app_colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+    const double windowSize = 650;
+    await DesktopWindow.setMaxWindowSize(const Size(windowSize, windowSize));
+    await DesktopWindow.setMinWindowSize(const Size(windowSize, windowSize));
+    await DesktopWindow.setWindowSize(const Size(windowSize, windowSize));
+  }
+
   runApp(const MyApp());
 }
 
@@ -18,14 +30,19 @@ class MyApp extends StatelessWidget {
     return AdaptiveTheme(
       light: ThemeData(
         brightness: Brightness.light,
+        toggleableActiveColor: AppColors.primaryDark,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: AppColors.primary)
-            .copyWith(secondary: Colors.amber, brightness: Brightness.light),
+            .copyWith(
+                secondary: AppColors.primary, brightness: Brightness.light),
       ),
       dark: ThemeData(
           brightness: Brightness.dark,
-          colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: AppColors.primaryDark)
-              .copyWith(secondary: Colors.amber, brightness: Brightness.dark)),
+          toggleableActiveColor: AppColors.primaryDark,
+          colorScheme:
+              ColorScheme.fromSwatch(primarySwatch: AppColors.primaryDark)
+                  .copyWith(
+                      secondary: AppColors.primaryDark,
+                      brightness: Brightness.dark)),
       builder: (theme, darkTheme) {
         return MaterialApp(
           title: 'Mobile Icon Set Creator',

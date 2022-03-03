@@ -20,6 +20,6 @@ class IconCreatorBloc extends Bloc<IconCreatorEvent, IconCreatorState> {
     on<IconCreatorOnAndroidCheckboxChanged>((event, emit) =>
         emit(state.copyWith(androidSelected: event.androidSelected)));
     on<IconCreatorOnIOSCheckboxChanged>((event, emit) =>
-        emit(state.copyWith(androidSelected: event.iosSelected)));
+        emit(state.copyWith(iosSelected: event.iosSelected)));
   }
 }
