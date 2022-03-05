@@ -8,10 +8,12 @@ class MainFlutterWindow: NSWindow {
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
     
-      self.styleMask = [.closable, .titled, .miniaturizable]
-      self.contentMaxSize = NSSize(width: 650, height: 650)
-      self.contentMinSize = NSSize(width: 650, height: 650)
-      self.setContentSize(NSSize(width: 650, height: 650))
+    self.styleMask = [.closable, .titled, .miniaturizable]
+    let windowWidth = 650
+    let windowHeight = 700
+    self.contentMaxSize = NSSize(width: windowWidth, height: windowHeight)
+    self.contentMinSize = NSSize(width: windowWidth, height: windowHeight)
+    self.setContentSize(NSSize(width: windowWidth, height: windowHeight))
       
     RegisterGeneratedPlugins(registry: flutterViewController)
 

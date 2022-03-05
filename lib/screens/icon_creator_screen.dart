@@ -86,7 +86,10 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<IconCreatorBloc>()
+                          .add(IconCreatorSubmitted(context));
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text('Go'),

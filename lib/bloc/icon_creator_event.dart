@@ -17,10 +17,11 @@ class IconCreatorFilesDropped extends IconCreatorEvent {
 }
 
 class IconCreatorSubmitted extends IconCreatorEvent {
-  const IconCreatorSubmitted();
+  const IconCreatorSubmitted(this.context);
 
+  final BuildContext context;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [context];
 }
 
 class IconCreatorDraggingChanged extends IconCreatorEvent {

@@ -5,31 +5,35 @@ class IconCreatorState extends Equatable {
       {required this.files,
       required this.dragging,
       required this.androidSelected,
-      required this.iosSelected});
+      required this.iosSelected,
+      required this.outputPath});
 
   IconCreatorState.initial()
       : this(
             files: [],
             dragging: false,
             androidSelected: true,
-            iosSelected: true);
+            iosSelected: true,
+            outputPath: null);
 
   final List<XFile> files;
   final bool dragging;
   final bool androidSelected;
   final bool iosSelected;
+  final String? outputPath;
 
   IconCreatorState copyWith(
       {List<XFile>? files,
       bool? dragging,
       bool? androidSelected,
-      bool? iosSelected}) {
+      bool? iosSelected,
+      String? outputPath}) {
     return IconCreatorState(
-      files: files ?? this.files,
-      dragging: dragging ?? this.dragging,
-      androidSelected: androidSelected ?? this.androidSelected,
-      iosSelected: iosSelected ?? this.iosSelected,
-    );
+        files: files ?? this.files,
+        dragging: dragging ?? this.dragging,
+        androidSelected: androidSelected ?? this.androidSelected,
+        iosSelected: iosSelected ?? this.iosSelected,
+        outputPath: outputPath ?? this.outputPath);
   }
 
   @override
