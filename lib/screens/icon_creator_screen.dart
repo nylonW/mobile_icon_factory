@@ -18,6 +18,7 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
     return Scaffold(
       body: BlocBuilder<IconCreatorBloc, IconCreatorState>(
           builder: (context, state) {
+            EdgeInsets.zero;
         return DropTarget(
           onDragDone: (details) {
             context
@@ -43,9 +44,14 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
                   child: AspectRatio(
                     aspectRatio: 1.0,
                     child: state.files.isNotEmpty
-                        ? Image.file(
-                            File(state.files.first.path),
-                            fit: BoxFit.cover,
+                        ? GridView.count(
+                            children: List.generate(
+                                state.files.length,
+                                (index) => Image.file(
+                                      File(state.files[index].path),
+                                      fit: BoxFit.fill,
+                                    )),
+                            crossAxisCount: state.files.length == 1 ? 1 : 2,
                           )
                         : const DragDropHint(),
                   ),
@@ -86,10 +92,13 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        context.read<IconCreatorBloc>()
-                          .add(IconCreatorSubmitted(context));
-                      },
+                      onPressed: state.files.isNotEmpty
+                          ? () {
+                              context
+                                  .read<IconCreatorBloc>()
+                                  .add(IconCreatorSubmitted(context));
+                            }
+                          : null,
                       child: const Padding(
                         padding: EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text('Go'),
