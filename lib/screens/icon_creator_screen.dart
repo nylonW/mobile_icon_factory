@@ -18,7 +18,7 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
     return Scaffold(
       body: BlocBuilder<IconCreatorBloc, IconCreatorState>(
           builder: (context, state) {
-            EdgeInsets.zero;
+        EdgeInsets.zero;
         return DropTarget(
           onDragDone: (details) {
             context
@@ -92,7 +92,8 @@ class _IconCreatorScreenState extends State<IconCreatorScreen> {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: state.files.isNotEmpty
+                      onPressed: state.files.isNotEmpty &&
+                              (state.androidSelected || state.iosSelected)
                           ? () {
                               context
                                   .read<IconCreatorBloc>()

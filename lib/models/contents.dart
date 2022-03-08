@@ -45,7 +45,7 @@ class Image {
 
   Image({required this.size, required this.idiom, required this.scale})
       : imageSize = size * scale {
-    filename = 'icon-${imageSize.toInt()}@$scale.png';
+    filename = 'icon-$size@$scale.png';
   }
 
   Map<String, dynamic> toJson() {
